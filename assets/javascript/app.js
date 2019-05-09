@@ -16,19 +16,50 @@ var firebaseConfig = {
 //database variable
 let database = firebase.database();
 
-//++++++++train information input++++++++++++//       
+//initial values
+//var tName = "";
+//var tFrequency = 0;
+//var dest = "";
+//var trainTime = 0;
 
-        //Frequency
+//click event handler function for submit button
+$("#submit").on("click", function() {
+    //event.preventDefault();
+    //logic for storing and retrieving train information
+
+        //train name
+        //var tName = jquery train name text input
+
+        //Frequency variable
         //var tFrequency = jquery frequency text input      
 
-        //destination 
+        //destination variable
         //var dest = jquery destingation text input     
 
-        //Train Time
-        //var trainTime = jquery first train time text input        
+        //Train Time variable
+        //var trainTime = jquery first train time text input 
+        
+    //set variables from initial train input to database   
+        //dataRef.ref().push({
+            //trainName = tname,
+            //frequency = tFrequency,
+            //destination = dest,
+            //firstTrain = trainTime
+        //});
+//});
 
-        //current time
-        //var currentTime = moment();       
+//Firebase watcher .on("child_added")
+//database.ref().on("child_added", function(snapshot) {
+    //store snapshot in variable
+    //var sv = snapshot.val();
+
+    //current time variable
+    //var currentTime = moment();
+
+    //create function to convert train information
+    //function trainCalc() {       
+        
+        //+++++++++ train time calculations +++++++++++//
 
         //difference between times
         //var diffTime = moment().diff(currentTime, "minutes");
@@ -44,16 +75,24 @@ let database = firebase.database();
         //Next Train
         //var nextTrain = moment().add(tMinutesTillTrain, "minutes");
         //console.log("arrival time: " + moment(nextTrain).format("hh:mm"));
+    //}
 
-//click event handler function for submit button
-    //set database variables using .ref().set()
-    //push variables from train calculation to database set variables
+//change html to reflect 
+    //jquery table row.text(sv.trainName);
+    //jquery table row.text(sv.tFrequency)
+    //jquery table row.text(sv.dest);
+    //jquery table row.text(sv.nextTrain);
+    
+//}, function(errorObject) {
+    //console.log("errors handled: " + errorObject.code);
+//});
+
+    
+    
+
+
      
 
-//database snapshot function to grab values from database
-    //console.log values
-    //grab variables from firebase
-    //manipulate and display information from database onto DOM
-    //error code function
+
 
     
