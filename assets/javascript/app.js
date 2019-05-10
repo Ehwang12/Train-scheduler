@@ -14,78 +14,92 @@ var firebaseConfig = {
 
 
 //database variable
-let database = firebase.database();
+var database = firebase.database();
 
 //initial values
-//var tName = "";
-//var tFrequency = 0;
-//var dest = "";
-//var trainTime = 0;
+var tName = "";
+var tFrequency = 0;
+var dest = "";
+var trainTime = 0;
 
 //click event handler function for submit button
-$("#submit").on("click", function() {
-    //event.preventDefault();
+$(document).on("click", "#submit", function(event) {
+    event.preventDefault();
     //logic for storing and retrieving train information
 
         //train name
-        //var tName = jquery train name text input
+        tName = $("#trainName").val().trim();
+        console.log(tName);
 
         //Frequency variable
-        //var tFrequency = jquery frequency text input      
+        tFrequency = $("#frequency").val().trim(); 
+        console.log(tFrequency);     
 
         //destination variable
-        //var dest = jquery destingation text input     
+        dest = $("#destination").val().trim();
+        console.log(dest);     
 
         //Train Time variable
-        //var trainTime = jquery first train time text input 
+        trainTime = $("#first-train-time").val().trim();
+        console.log(trainTime); 
         
     //set variables from initial train input to database   
-        //dataRef.ref().push({
-            //trainName = tname,
-            //frequency = tFrequency,
-            //destination = dest,
-            //firstTrain = trainTime
-        //});
-//});
+        database.ref().push({
+            trainName: tName,
+            frequency: tFrequency,
+            destination: dest,
+            firstTrain: trainTime
+        });
+});
 
 //Firebase watcher .on("child_added")
-//database.ref().on("child_added", function(snapshot) {
+database.ref().on("child_added", function(snapshot) {
     //store snapshot in variable
-    //var sv = snapshot.val();
+    var sv = snapshot.val();
 
     //current time variable
-    //var currentTime = moment();
+    var currentTime = moment();
 
     //create function to convert train information
-    //function trainCalc() {       
-        
+    function trainCalc() {       
         //+++++++++ train time calculations +++++++++++//
 
         //difference between times
-        //var diffTime = moment().diff(currentTime, "minutes");
-        //console.log("difference in time: " + diffTime);       
+        var diffTime = moment().diff(currentTime, "minutes");
+        console.log("difference in time: " + diffTime);       
 
         //Time apart (remainder)
-        //var tRemainder = diffTime % tFrequency;       
+        var tRemainder = diffTime % tFrequency;       
 
         //Minute until Train
-        //var tMinutesTillTrain = tFrequency - tRemainder;
-        //console.log("minutes till train: " + tMinutesTillTrain)       
+        var tMinutesTillTrain = tFrequency - tRemainder;
+        console.log("minutes till train: " + tMinutesTillTrain)       
 
         //Next Train
-        //var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-        //console.log("arrival time: " + moment(nextTrain).format("hh:mm"));
-    //}
-
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+        console.log("arrival time: " + moment(nextTrain).format("hh:mm"));
+    };
+    trainCalc();
 //change html to reflect 
-    //jquery table row.text(sv.trainName);
-    //jquery table row.text(sv.tFrequency)
-    //jquery table row.text(sv.dest);
-    //jquery table row.text(sv.nextTrain);
+    //create table row element
+    var newRow = $("<tr>");
     
-//}, function(errorObject) {
-    //console.log("errors handled: " + errorObject.code);
-//});
+    
+    //variables for train output
+    var name = $("#train-name-output").text(sv.trainName);
+    var freq = $("#destination-output").text(parseInt(sv.tFrequency));
+    var destNew = $("#frequency-output").text(sv.dest);
+    var trainArrival = $("#arrival-output").text(sv.nextTrain);
+
+    //append to table row
+    newRow.append(name, freq, destNew, trainArrival);
+
+    //append to table body
+    $(".tbody").append(newRow);
+    
+    }, function(errorObject) {
+        console.log("errors handled: " + errorObject.code);
+});
 
     
     
@@ -95,4 +109,3 @@ $("#submit").on("click", function() {
 
 
 
-    
