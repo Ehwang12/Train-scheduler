@@ -1,0 +1,18 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.jumbotron {
+    font-family: 'Patua One', cursive;
+    color: #ffa3ac;
+    background-color: #005d6c;
+}
+
+.card-header {
+    color: #ffa3ac;
+    background-color: #005d6c;
+    font-family: 'Patua One', cursive;
+}
+
+
