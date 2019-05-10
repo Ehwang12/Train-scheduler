@@ -55,13 +55,15 @@ $(document).on("click", "#submit", function(event) {
 //Firebase watcher .on("child_added")
 database.ref().on("child_added", function(childSnapshot) {
     //store snapshot in variable
+    let destination = childSnapshot.val().destination;
+    let trainName = childSnapshot.val().trainName;
     let firstTrain = childSnapshot.val().firstTrain;
     let frequency = parseInt(parseInt(childSnapshot.val().frequency));
     
-    console.log(childSnapshot.val().trainName);
-    console.log(parseInt(childSnapshot.val().frequency));
-    console.log(childSnapshot.val().destination);
-    console.log(childSnapshot.val().firstTrain);
+    // console.log(childSnapshot.val().trainName);
+    // console.log(parseInt(childSnapshot.val().frequency));
+    // console.log(childSnapshot.val().destination);
+    // console.log(childSnapshot.val().firstTrain);
 
     //create function to convert train information
     function trainCalc() {       
@@ -90,28 +92,24 @@ database.ref().on("child_added", function(childSnapshot) {
 
     // Next Train
     var nextTrain = currentTime.add(tMinutesTillTrain, "minutes");
-    console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
-    };
-    trainCalc();
+    console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm A"));
 
 //change html to reflect 
     //create table row element
-    // var newRow = $("<tr>");
+    var newRow = $("<tr>");
     
     //create table data element
-    // var newData = $("<td>");
-
-    //variables for train output
-    // .text(sv.trainName);
-    // .text(parseInt(sv.tFrequency));
-    // .text(sv.dest);
-    // .text(sv.nextTrain);
+    var newData = $("<td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + moment(nextTrain).format("hh:mm A") + "</td><td>" + tMinutesTillTrain + "</td>");
 
     //append to table row
-    // newRow.append(name, freq, destNew, trainArrival);
+    newRow.append(newData);
 
     //append to table body
-    // $(".tbody").append(newRow);
+    $(".tbody").append(newRow);
+
+
+    };
+    trainCalc();
     
     }, function(errorObject) {
         console.log("errors handled: " + errorObject.code);
