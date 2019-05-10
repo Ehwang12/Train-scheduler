@@ -1,3 +1,4 @@
+
 //firebase data config
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -26,22 +27,24 @@ var trainTime = "";
 $(document).on("click", "#submit", function(event) {
     event.preventDefault();
     //logic for storing and retrieving train information
+        //clear text after info submission
+        
 
         //train name
         tName = $("#trainName").val().trim();
-        console.log(tName);
+        
 
         //Frequency variable
         tFrequency = $("#frequency").val().trim(); 
-        console.log(tFrequency);     
+            
 
         //destination variable
         dest = $("#destination").val().trim();
-        console.log(dest);     
+             
 
         //Train Time variable
         trainTime = $("#first-train-time").val().trim();
-        console.log(trainTime); 
+        
         
     //set variables from initial train input to database   
         database.ref().push({
@@ -76,7 +79,7 @@ database.ref().on("child_added", function(childSnapshot) {
 
     // Current Time
     var currentTime = moment();
-    console.log("CURRENT TIME: " + currentTime.format("hh:mm"));
+    console.log("CURRENT TIME: " + currentTime.format("hh:mm A"));
 
     // Difference between the times
     var diffTime = currentTime.diff(firstTimeConverted, "minutes");
@@ -99,7 +102,7 @@ database.ref().on("child_added", function(childSnapshot) {
     var newRow = $("<tr>");
     
     //create table data element
-    var newData = $("<td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + moment(nextTrain).format("hh:mm A") + "</td><td>" + tMinutesTillTrain + "</td>");
+    var newData = $("<td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + moment(nextTrain).format("HH:mm A") + "</td><td>" + tMinutesTillTrain + "</td>");
 
     //append to table row
     newRow.append(newData);
